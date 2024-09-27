@@ -31,6 +31,15 @@ jobs:
       # Checks that all Terraform configuration files adhere to a canonical format
       - name: Terraform Format
         run: terraform fmt -check -recursive
+        
+      - name: Generate a token
+        id: generate_token
+        uses: actions/create-github-app-token@v1
+        with:
+          app_id: ${{ secrets.APP_ID }}
+          private_key: ${{ secrets.APP_PEM }}
+          # Set the owner, so the token can be used in all repositories
+          owner: ${{ github.repository_owner }}
       
       # Perform a security scan of the terraform code using checkov
       - name: Run Checkov action
