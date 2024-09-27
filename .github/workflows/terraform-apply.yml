@@ -7,11 +7,11 @@ on:
 jobs:
   terraform:
     runs-on: ubuntu-latest
-    
+
     permissions:
-      contents: write
-      pull-requests: write
-      repository-projects: write
+      contents: read
+      actions: read
+      checks: write
 
     env:
       ARM_CLIENT_ID: "04684342-05fe-44a5-9c41-176278bf7fbd"
