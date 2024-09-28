@@ -17,7 +17,7 @@ resource "azurerm_resource_group" "rg-hello-azure0" {
   location = "northcentralus"
 }
 
-resource "azurerm_resource_group" "rg-hello-azure0" {
+resource "azurerm_resource_group" "rg-hello-azure1" {
   name     = "rg-hello-azure1"
   location = "northcentralus"
 }
