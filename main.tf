@@ -12,7 +12,12 @@ terraform {
   }
 }
 
-resource "azurerm_resource_group" "rg-hello-azure" {
-  name     = "rg-hello-azure"
+resource "azurerm_resource_group" "rg-hello-azure0" {
+  name     = "rg-hello-azure0"
+  location = "northcentralus"
+}
+
+resource "azurerm_resource_group" "rg-hello-azure1" {
+  name     = "rg-hello-azure1"
   location = "northcentralus"
 }
