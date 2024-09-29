@@ -13,7 +13,7 @@ permissions: read-all
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "scan"
-  scan:
+  CodeScan:
     permissions:
       contents: read # for actions/checkout to fetch code
       security-events: write # for github/codeql-action/upload-sarif to upload SARIF results
@@ -45,3 +45,27 @@ jobs:
         if: success() || failure()
         with:
           sarif_file: results.sarif
+jobs:
+  terraform:
+    runs-on: ubuntu-latest
+
+    env:
+      ARM_CLIENT_ID: "04684342-05fe-44a5-9c41-176278bf7fbd"
+      ARM_CLIENT_SECRET: ${{secrets.TF_ARM_CLIENT_SECRET}}
+      ARM_SUBSCRIPTION_ID: "177add63-2747-4d6d-a5e4-004dc63b04c6"
+      ARM_TENANT_ID: "a55b816c-e99d-4af2-b69c-60fb4f03bef5"
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v1
+
+      - name: Terraform Init
+        run: terraform init
+
+      - name: Terraform Format
+        run: terraform fmt -check
+
+      - name: Terraform Plan
+        run: terraform plan
