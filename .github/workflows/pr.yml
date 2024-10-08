@@ -72,7 +72,7 @@ jobs:
     runs-on: ubuntu-latest
 
     needs: terraform_Plan
-    step:
+    steps:
       - name: Manual Workflow Approval
         uses: trstringer/manual-approval@v1.9.1
         with:
