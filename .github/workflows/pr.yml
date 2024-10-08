@@ -2,7 +2,7 @@ name: run scan and terraform plan
 
 on:
   push:
-      branches: [ "dev" ]
+      branches: [ "DevDeploy" ]
   pull_request:
     branches: [ "main" ]
 
