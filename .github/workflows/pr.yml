@@ -69,7 +69,6 @@ jobs:
         run: terraform plan
       
   waitting_approve:
-
     needs: terraform_Plan
 
     - name: Manual Workflow Approval
