@@ -69,6 +69,8 @@ jobs:
         run: terraform plan
       
   waitting_approve:
+    runs-on: ubuntu-latest
+
     needs: terraform_Plan
 
     - name: Manual Workflow Approval
