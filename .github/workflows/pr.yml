@@ -67,3 +67,19 @@ jobs:
 
       - name: Terraform Plan
         run: terraform plan
+      
+  waitting_approve
+
+    needs: terraform_Plan
+
+    - name: Manual Workflow Approval
+      uses: trstringer/manual-approval@v1.9.1
+      with:
+        secret: ${{ github.TOKEN }}
+        approvers: zihan2030
+        minimum-approvals: 1
+        issue-title: "Deploying v1.3.5 to prod from staging"
+        issue-body: "Please approve or deny the deployment of version v1.3.5."
+        exclude-workflow-initiator-as-approver: false
+        additional-approved-words: ''
+        additional-denied-words: ''
