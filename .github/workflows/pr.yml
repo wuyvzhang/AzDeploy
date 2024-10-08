@@ -68,7 +68,7 @@ jobs:
       - name: Terraform Plan
         run: terraform plan
       
-  waitting_approve
+  waitting_approve:
 
     needs: terraform_Plan
 
