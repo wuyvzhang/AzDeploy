@@ -79,6 +79,9 @@ jobs:
           elif [${{ steps.set_workspace.outputs.environment }} == 'prod']; then
             working-directory: ./prod
           fi
+      
+      -name: print workdir
+        run: echo ${{ github.workspace }}
 
       - name: Terraform Init
         run: terraform init
