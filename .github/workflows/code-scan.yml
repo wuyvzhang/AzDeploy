@@ -68,14 +68,21 @@ jobs:
       
       - name: print env
         run: echo ${{ steps.set_workspace.outputs.environment }}
-      
-      - name: set work directory
-        run: | 
-          if [ ${{ steps.set_workspace.outputs.environment  == 'prod' }} ]; then
-            working-directory: ./prod
-          else
-            working-directory: ./dev
-          fi
+
+      - name: set deploy environment
+        run: |
+        case "${{ steps.set_workspace.outputs.environment }} " in
+          prod)
+            run: | 
+              shell: bash
+              working-directory: ./prod
+            ;;
+          *)
+            run: | 
+              shell: bash
+              working-directory: ./dev
+            ;;
+        esac
 
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v1
