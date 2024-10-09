@@ -80,7 +80,7 @@ jobs:
             working-directory: ./prod
           fi
       
-      -name: print workdir
+      - name: print workdir
         run: echo ${{ github.workspace }}
 
       - name: Terraform Init
