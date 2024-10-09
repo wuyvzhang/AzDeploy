@@ -74,12 +74,12 @@ jobs:
 
       - name: Set WorkDir
         run: |
-          if [${{ steps.set_workspace.outputs.environment }} == 'dev']; then
-            shell: bash
-            working-directory: ./dev
-          elif [${{ steps.set_workspace.outputs.environment }} == 'prod']; then
+          if [${{ steps.set_workspace.outputs.environment }} == 'prod']; then
             shell: bash
             working-directory: ./prod
+          else [${{ steps.set_workspace.outputs.environment }} == 'dev']; then
+            shell: bash
+            working-directory: ./dev
           fi
       
       - name: print workdir
