@@ -68,10 +68,26 @@ jobs:
       
       - name: print env
         run: echo ${{ steps.set_workspace.outputs.environment }}
+      
+      - name: hello world
+        run | 
+        if [ ${{ steps.set_workspace.outputs.environment }} == 'dev' ]; then
+          run: echo 'hello worl'
 
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v1
 
+      
+      - name: Set WorkDir
+        run: |
+          workenv ="${{ steps.set_workspace.outputs.environment == 'prod' }}"
+          if [ '$workenv' = true ]; then
+            shell: bash
+            working-directory: ./prod
+          else 
+            shell: bash
+            working-directory: ./dev
+          fi
       
       - name: print workdir
         run: echo ${{ github.workspace }}
