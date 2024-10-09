@@ -62,10 +62,10 @@ jobs:
           prod="${{ github.event.pull_request.base.ref == 'main' || github.ref == 'refs/head/main' }}"
           if [ "$prod" = true ]; then
             echo "::set-output name=environment::prod"
-            run: working-directory: ./prod
+            working-directory: ./prod
           else
             echo "::set-output name=environment::dev"
-            run: working-directory: ./dev
+            working-directory: ./dev
           fi
       
       - name: print env
