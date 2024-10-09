@@ -2,7 +2,7 @@ name: run scan and terraform plan
 
 on:
   push:
-      branches: [ "dev" ]
+      branches: [ "DevDeploy" ]
 
 permissions: read-all 
 
@@ -69,7 +69,7 @@ jobs:
   terraform_Apply:
     runs-on: ubuntu-latest
 
-     needs: terraform_Plan
+    needs: terraform_Plan
 
     env:
       ARM_CLIENT_ID: "04684342-05fe-44a5-9c41-176278bf7fbd"
