@@ -62,27 +62,14 @@ jobs:
           prod="${{ github.event.pull_request.base.ref == 'main' || github.ref == 'refs/head/main' }}"
           if [ "$prod" = true ]; then
             echo "::set-output name=environment::prod"
+            run: working-directory: ./prod
           else
             echo "::set-output name=environment::dev"
+            run: working-directory: ./dev
           fi
       
       - name: print env
         run: echo ${{ steps.set_workspace.outputs.environment }}
-
-      - name: set deploy environment
-        run: |
-        case "${{ steps.set_workspace.outputs.environment }} " in
-          prod)
-            run: | 
-              shell: bash
-              working-directory: ./prod
-            ;;
-          *)
-            run: | 
-              shell: bash
-              working-directory: ./dev
-            ;;
-        esac
 
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v1
