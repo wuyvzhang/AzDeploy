@@ -2,7 +2,7 @@ name: run scan and terraform plan
 
 on:
   push:
-      branches: [ "DevDeploy" ]
+      branches: [ "dev" ]
 
 permissions: read-all 
 
