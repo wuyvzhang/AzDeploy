@@ -75,7 +75,7 @@ jobs:
       - name: Set WorkDir
         run: |
           workenv ="${{ steps.set_workspace.outputs.environment == 'prod' }}"
-          if [ '$workenv' = 'prod' ] then
+          if [ '$workenv' = true ] then
             shell: bash
             working-directory: ./prod
           else 
