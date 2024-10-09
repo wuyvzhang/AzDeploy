@@ -77,7 +77,7 @@ jobs:
           if [${{ steps.set_workspace.outputs.environment }} = 'prod']; then
             shell: bash
             working-directory: ./prod
-          else [${{ steps.set_workspace.outputs.environment }} = 'dev']; then
+          else [${{ steps.set_workspace.outputs.environment }} = 'dev']; 
             shell: bash
             working-directory: ./dev
           fi
