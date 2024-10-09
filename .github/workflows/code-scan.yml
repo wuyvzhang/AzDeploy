@@ -44,8 +44,6 @@ jobs:
           
   terraform_Plan:
     runs-on: ubuntu-latest
-    env:
-      working-directory: ./dev
 
     needs: code_scan
 
@@ -54,6 +52,7 @@ jobs:
       ARM_CLIENT_SECRET: ${{secrets.TF_ARM_CLIENT_SECRET}}
       ARM_SUBSCRIPTION_ID: "177add63-2747-4d6d-a5e4-004dc63b04c6"
       ARM_TENANT_ID: "a55b816c-e99d-4af2-b69c-60fb4f03bef5"
+      working-directory: ./dev
 
     steps:
       - uses: actions/checkout@v2
