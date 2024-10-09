@@ -44,9 +44,7 @@ jobs:
           
   terraform_Plan:
     runs-on: ubuntu-latest
-    defaults:
-    run:
-      shell: bash
+    env:
       working-directory: ./dev
 
     needs: code_scan
