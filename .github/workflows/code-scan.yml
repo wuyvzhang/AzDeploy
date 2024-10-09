@@ -57,7 +57,7 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: pwd
-        run : ls
+        run : ls -a
 
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v1
