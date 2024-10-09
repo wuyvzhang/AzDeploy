@@ -5,6 +5,11 @@ on:
       branches: [ "dev" ]
   pull_request:
     branches: [ "main" ]
+  
+  defaults:
+    run:
+      shell: bash
+      working-directory: ./dev
 
 permissions: read-all 
 
@@ -46,11 +51,6 @@ jobs:
     runs-on: ubuntu-latest
 
     needs: code_scan
-
-    defaults:
-    run:
-      shell: bash
-      working-directory: ./dev
 
     env:
       ARM_CLIENT_ID: "04684342-05fe-44a5-9c41-176278bf7fbd"
