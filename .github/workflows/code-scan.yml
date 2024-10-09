@@ -6,11 +6,6 @@ on:
   pull_request:
     branches: [ "main" ]
   
-  defaults:
-    run:
-      shell: bash
-      working-directory: ./dev
-
 permissions: read-all 
 
 jobs:
@@ -49,6 +44,10 @@ jobs:
           
   terraform_Plan:
     runs-on: ubuntu-latest
+    defaults:
+    run:
+      shell: bash
+      working-directory: ./dev
 
     needs: code_scan
 
