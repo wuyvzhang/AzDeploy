@@ -46,7 +46,7 @@ jobs:
     runs-on: ubuntu-latest
 
     needs: code_scan
-    
+
     env:
       ARM_CLIENT_ID: "04684342-05fe-44a5-9c41-176278bf7fbd"
       ARM_CLIENT_SECRET: ${{secrets.TF_ARM_CLIENT_SECRET}}
@@ -55,6 +55,16 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
+
+      - name: Set Workspace
+        id: set_workspace
+        run: |
+          prod="${{ github.event.pull_request.base.ref == 'main' || github.ref == 'refs/head/main' }}"
+          if [ "$prod" = true ]; then
+            echo "::set-output name=environment::prod"
+          else
+            echo "::set-output name=environment::dev"
+          fi
 
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v1
