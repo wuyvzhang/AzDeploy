@@ -118,4 +118,5 @@ jobs:
         run: terraform fmt -check -recursive
 
       - name: Terraform Apply
+        if: ${{ steps.set_workspace.outputs.environment == 'dev'}}
         run: terraform apply -var-file='./dev/config-dev.tfvars' -auto-approve
