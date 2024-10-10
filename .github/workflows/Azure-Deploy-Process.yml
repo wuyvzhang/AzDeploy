@@ -1,4 +1,4 @@
-name: run scan and terraform plan
+name: Azure Resource Deployment
 
 on:
   push:

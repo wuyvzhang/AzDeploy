@@ -7,8 +7,10 @@ on:
 permissions: read-all 
 
 jobs:
-  terraform:
+  terraform_Plan:
     runs-on: ubuntu-latest
+
+    needs: code_scan
 
     env:
       ARM_CLIENT_ID: "04684342-05fe-44a5-9c41-176278bf7fbd"
@@ -19,14 +21,33 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
+      - name: Set Workspace
+        id: set_workspace
+        run: |
+          prod="${{ github.event.pull_request.base.ref == 'main' || github.ref == 'refs/head/main' }}"
+          if [ "$prod" = true ]; then
+            echo "::set-output name=environment::prod"
+          else
+            echo "::set-output name=environment::dev"
+          fi
+
+      - name: pwd
+        run : ls -a
+
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v1
 
+
       - name: Terraform Init
-        run: terraform init
+        run: terraform init 
 
       - name: Terraform Format
         run: terraform fmt -check
 
-      - name: Terraform Plan
-        run: terraform plan
+      - name: Terraform Plan Dev
+        if: ${{ steps.set_workspace.outputs.environment == 'dev'}}
+        run: terraform plan -var-file='./dev/config-dev.tfvars' -lock=false
+
+      - name: Terraform Plan Prod
+        if: ${{ steps.set_workspace.outputs.environment == 'prod'}}
+        run: terraform plan -var-file='./dev/config-dev.tfvars' -lock=false
