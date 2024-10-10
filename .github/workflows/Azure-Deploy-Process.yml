@@ -76,11 +76,11 @@ jobs:
 
       - name: Terraform Plan Dev
         if: ${{ steps.set_workspace.outputs.environment == 'dev'}}
-        run: terraform plan -var-file='./dev/config-dev.tfvars' -lock=false
+        run: TF_LOG=debug terraform plan -var-file='./dev/config-dev.tfvars' -lock=false
 
       - name: Terraform Plan Prod
         if: ${{ steps.set_workspace.outputs.environment == 'prod'}}
-        run: terraform plan -var-file='./dev/config-dev.tfvars' -lock=false
+        run: TF_LOG=debug terraform plan -var-file='./prod/config-prod.tfvars' -lock=false
 
 
   Terraform_Apply:
@@ -123,4 +123,4 @@ jobs:
       
       - name: Terraform Apply Prod
         if: ${{ steps.set_workspace.outputs.environment == 'prod'}}
-        run: terraform apply -var-file='./dev/config-dev.tfvars' -auto-approve
+        run: terraform apply -var-file='./prod/config-prod.tfvars' -auto-approve
