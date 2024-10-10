@@ -57,15 +57,15 @@ jobs:
       - name: Set Workspace
         id: set_workspace
         run: |
-          prod="${{ github.event.pull_request.base.ref == 'main' || github.ref == 'refs/head/main' }}"
+          prod="${{ github.ref == 'refs/heads/main' }}"
           if [ "$prod" = true ]; then
             echo "::set-output name=environment::prod"
           else
             echo "::set-output name=environment::dev"
           fi
 
-      - name: pwd
-        run : ls -a
+      - name: print branch
+        run : ${{ github.ref == 'refs/heads/main' }}
 
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v1
@@ -103,12 +103,15 @@ jobs:
       - name: Set Workspace
         id: set_workspace
         run: |
-          prod="${{ github.event.pull_request.base.ref == 'main' || github.ref == 'refs/head/main' }}"
+          prod="${{ github.ref == 'refs/heads/main' }}"
           if [ "$prod" = true ]; then
             echo "::set-output name=environment::prod"
           else
             echo "::set-output name=environment::dev"
           fi
+
+      - name: print branch
+        run : ${{ github.ref == 'refs/heads/main' }}
 
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v1
