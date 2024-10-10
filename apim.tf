@@ -1,7 +1,7 @@
 resource "azurerm_api_management" "apim01" {
   name                = "example-apim"
-  location            = azurerm_resource_group.example.location
-  resource_group_name = azurerm_resource_group.example.name
+  location            = var.location
+  resource_group_name = var.resource_group_name
   publisher_name      = "My Company"
   publisher_email     = "company@terraform.io"
 
