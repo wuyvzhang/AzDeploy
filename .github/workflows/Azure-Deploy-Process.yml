@@ -1,10 +1,8 @@
-name: run scan and terraform plan
+name: Azure Resource Deployment
 
 on:
   push:
-      branches: [ "dev" ]
-  pull_request:
-    branches: [ "main" ]
+      branches: [ "dev","main" ]
   
 permissions: read-all 
 

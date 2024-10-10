@@ -2,13 +2,48 @@ name: Terraform Plan
 
 on:
   pull_request:
-#    branches: [ main ]
-
+    branches: [ main ]
+  
 permissions: read-all 
 
 jobs:
-  terraform:
+  code_scan:
+    permissions:
+      contents: read # for actions/checkout to fetch code
+      security-events: write # for github/codeql-action/upload-sarif to upload SARIF results
+      actions: read # only required for a private repository by github/codeql-action/upload-sarif to get the Action run status
+      
+    # The type of runner that the job will run on
     runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so follow-up steps can access it
+      - uses: actions/checkout@v3
+
+      - name: Checkov GitHub Action
+        uses: bridgecrewio/checkov-action@v12
+        with:
+          # This will add both a CLI output to the console and create a results.sarif file
+          output_format: cli,sarif
+          output_file_path: console,results.sarif
+        
+      - name: Upload SARIF file
+        uses: github/codeql-action/upload-sarif@v3
+        
+        # Results are generated only on a success or failure
+        # this is required since GitHub by default won't run the next step
+        # when the previous one has failed. Security checks that do not pass will 'fail'.
+        # An alternative is to add `continue-on-error: true` to the previous step
+        # Or 'soft_fail: true' to checkov.
+        if: success() || failure()
+        with:
+          sarif_file: results.sarif
+          
+  terraform_Plan:
+    runs-on: ubuntu-latest
+
+    needs: code_scan
 
     env:
       ARM_CLIENT_ID: "04684342-05fe-44a5-9c41-176278bf7fbd"
@@ -19,14 +54,33 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
+      - name: Set Workspace
+        id: set_workspace
+        run: |
+          prod="${{ github.event.pull_request.base.ref == 'main' || github.ref == 'refs/head/main' }}"
+          if [ "$prod" = true ]; then
+            echo "::set-output name=environment::prod"
+          else
+            echo "::set-output name=environment::dev"
+          fi
+
+      - name: pwd
+        run : ls -a
+
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v1
 
+
       - name: Terraform Init
-        run: terraform init
+        run: terraform init 
 
       - name: Terraform Format
         run: terraform fmt -check
 
-      - name: Terraform Plan
-        run: terraform plan
+      - name: Terraform Plan Dev
+        if: ${{ steps.set_workspace.outputs.environment == 'dev'}}
+        run: terraform plan -var-file='./dev/config-dev.tfvars' -lock=false
+
+      - name: Terraform Plan Prod
+        if: ${{ steps.set_workspace.outputs.environment == 'prod'}}
+        run: terraform plan -var-file='./dev/config-dev.tfvars' -lock=false
