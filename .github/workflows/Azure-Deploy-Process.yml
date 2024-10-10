@@ -67,9 +67,6 @@ jobs:
       - name: print branch
         run : ${{ github.ref == 'refs/heads/main' }}
 
-      - name: check branch
-        run : ${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}" >> $GITHUB_OUTPUT
-
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v1
 
