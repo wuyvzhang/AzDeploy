@@ -57,7 +57,7 @@ jobs:
       - name: Set Workspace
         id: set_workspace
         run: |
-          prod="${{ github.ref == 'refs/head/main' }}"
+          prod="${{ github.ref == 'refs/heads/main' }}"
           if [ "$prod" = true ]; then
             echo "::set-output name=environment::prod"
           else
@@ -65,7 +65,7 @@ jobs:
           fi
 
       - name: print branch
-        run : ${{ github.ref == 'refs/head/main' }}
+        run : ${{ github.ref == 'refs/heads/main' }}
 
       - name: check branch
         run : ${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}" >> $GITHUB_OUTPUT
