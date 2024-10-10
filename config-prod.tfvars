@@ -1,5 +1,5 @@
 resource_group_name = "Demo-Inf-Prod-Rg"
-location            = "UKSouth"
+location            = "japaneast"
 key_vault_name      = "Pwd9000-Inf-Prod-Kv"
 use_rbac_mode       = true
 apim01_name         = "demo-inf-prod-apim01"
