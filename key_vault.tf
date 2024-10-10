@@ -8,6 +8,24 @@ resource "azurerm_key_vault" "example" {
   purge_protection_enabled    = true
   public_network_access_enabled = false
 
+  access_policy {
+    tenant_id = data.azurerm_client_config.current.tenant_id
+    object_id = data.azurerm_client_config.current.object_id
+
+    key_permissions = [
+      "Get",
+    ]
+
+    secret_permissions = [
+      "Get",
+    ]
+
+    storage_permissions = [
+      "Get",
+    ]
+  }
+
+
   sku_name = "standard"
 
   network_acls {
