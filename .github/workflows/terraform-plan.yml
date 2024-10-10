@@ -64,9 +64,6 @@ jobs:
             echo "::set-output name=environment::dev"
           fi
 
-      - name: print branch
-        run : ${{ github.ref == 'refs/heads/main' }}
-        
       - name: pwd
         run : echo ${{ steps.set_workspace.outputs.environment}}
 
