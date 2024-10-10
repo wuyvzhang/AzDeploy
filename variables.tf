@@ -20,6 +20,17 @@ variable "use_rbac_mode" {
   default     = null
 }
 
+variable "apim01_name" {
+  type        = string
+  description = "Specifies the name of the resource group that will be created."
+}
+
+variable "apim02_name" {
+  type        = string
+  description = "Specifies the name of the resource group that will be created."
+}
+
+
 variable "tags" {
   type        = map(any)
   description = "Specifies a map of tags to be applied to the resources created."
