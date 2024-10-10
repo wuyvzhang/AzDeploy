@@ -81,11 +81,11 @@ jobs:
 
       - name: Terraform Plan Dev
         if: ${{ steps.set_workspace.outputs.environment == 'dev'}}
-        run: terraform plan -var-file='./dev/config-dev.tfvars'
+        run: terraform plan -var-file='./dev/config-dev.tfvars' -lock=false
 
       - name: Terraform Plan Prod
         if: ${{ steps.set_workspace.outputs.environment == 'prod'}}
-        run: terraform plan -var-file='./dev/config-dev.tfvars'
+        run: terraform plan -var-file='./dev/config-dev.tfvars' -lock=false
 
 
   Terraform_Apply:
