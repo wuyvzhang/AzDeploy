@@ -1,5 +1,3 @@
-data "azurerm_client_config" "current" {}
-
 resource "azurerm_key_vault" "example" {
   name                        = var.key_vault_name
   location                    = var.location
@@ -22,6 +20,5 @@ resource "azurerm_key_vault" "example" {
 
     # The list of allowed ip addresses.
     ip_rules       = ["1.1.1.1","2.2.2.2"]
-
   }
 }
