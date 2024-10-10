@@ -79,9 +79,14 @@ jobs:
       - name: Terraform Format
         run: terraform fmt -check
 
-      - name: Terraform Plan
+      - name: Terraform Plan Dev
         if: ${{ steps.set_workspace.outputs.environment == 'dev'}}
-        run: terraform plan -var-file='./dev/config-dev.tfvars'
+        run: terraform plan -var-file='./dev/config-dev.tfvars' -lock=false
+
+      - name: Terraform Plan Prod
+        if: ${{ steps.set_workspace.outputs.environment == 'prod'}}
+        run: terraform plan -var-file='./dev/config-dev.tfvars' -lock=false
+
 
   Terraform_Apply:
     runs-on: ubuntu-latest
@@ -117,6 +122,10 @@ jobs:
       - name: Terraform Format
         run: terraform fmt -check -recursive
 
-      - name: Terraform Apply
+      - name: Terraform Apply Dev
         if: ${{ steps.set_workspace.outputs.environment == 'dev'}}
+        run: terraform apply -var-file='./dev/config-dev.tfvars' -auto-approve
+      
+      - name: Terraform Apply Prod
+        if: ${{ steps.set_workspace.outputs.environment == 'prod'}}
         run: terraform apply -var-file='./dev/config-dev.tfvars' -auto-approve
