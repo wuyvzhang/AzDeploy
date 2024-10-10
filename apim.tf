@@ -1,5 +1,5 @@
 resource "azurerm_api_management" "apim" {
-  name                          = var.apim01_name
+  name                          = "apim-demo-jpe-001"
   location                      = var.location
   resource_group_name           = var.resource_group_name
   publisher_name                = "My Company"
