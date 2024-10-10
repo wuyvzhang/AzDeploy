@@ -13,8 +13,7 @@ resource "azapi_resource" "apim" {
       publisherEmail      = "company@terraform.io"
       publisherName       = "Cognex"
       sku = {
-        capacity = 1
-        name     = "StandardV2"
+      name = "Standard"
       }
       virtualNetworkConfiguration = {
         subnetResourceId = "/subscriptions/177add63-2747-4d6d-a5e4-004dc63b04c6/resourceGroups/RG-W2K16-Demo-JPE/providers/Microsoft.Network/virtualNetworks/SR-W2k16-01-vnet/subnets/apim"
