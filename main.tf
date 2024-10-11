@@ -9,6 +9,10 @@ terraform {
       source  = "hashicorp/random"
       version = "~>3.0"
     }
+    azapi = {
+      source  = "azure/azapi"
+      version = "=1.15.0"
+    }
   }
   backend "azurerm" {
     resource_group_name  = "rg-hello-azure-tf"

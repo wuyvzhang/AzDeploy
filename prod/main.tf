@@ -8,6 +8,6 @@ terraform {
     resource_group_name  = "rg-hello-azure-tf"
     storage_account_name = "githubazuretf"
     container_name       = "terraform-state"
-    key                  = "terraform.tfstate"
+    key                  = "tf.tfstate"
   }
 }
